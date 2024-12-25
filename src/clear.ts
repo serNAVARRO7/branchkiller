@@ -10,7 +10,7 @@ const rl = readline.createInterface({
 
 async function clear(): Promise<void> {
   try {
-    handleLocalBranches();
+    await handleLocalBranches();
   } catch (err) {
     console.error("Error cleaning branches:", err);
   }
@@ -32,11 +32,9 @@ async function handleLocalBranches() {
             console.log(`Deleting local branch ${branch}...`);
             await git.deleteLocalBranch(branch);
             console.log(`Local branch ${branch} deleted.`);
-            rl.close();
           }
         } else {
           console.log("Process canceled. No local branches were deleted.");
-          rl.close();
         }
         await handleRemoteBranches();
       }
@@ -69,11 +67,10 @@ async function handleRemoteBranches() {
             ]);
             console.log(`Remote branch ${branch} deleted.`);
           }
-          rl.close();
         } else {
           console.log("Process canceled. No remote branches were deleted.");
-          rl.close();
         }
+        rl.close();
       }
     );
   } else {
