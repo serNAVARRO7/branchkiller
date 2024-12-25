@@ -1,14 +1,29 @@
 {
   "name": "brclear",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "version": "0.0.1",
+  "description": "A command-line tool to delete all git local and remote branches except 'main'.",
+  "main": "dist/clear.js",
+  "bin": {
+    "brclear": "./dist/clear.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/clear.js",
+    "brclear": "npm run build && npm run start"
+  },
+  "keywords": [
+    "git",
+    "branch",
+    "clear",
+    "delete",
+    "prune"
+  ],
+  "author": "Sergio Navarro",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serNAVARRO7/brclear"
+  },
   "devDependencies": {
     "simple-git": "^3.27.0",
     "@types/node": "^22.10.2",
