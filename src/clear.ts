@@ -11,9 +11,17 @@ const rl = readline.createInterface({
 async function clear(): Promise<void> {
   try {
     await handleLocalBranches();
+    await handleRemoteBranches();
+    rl.close();
   } catch (err) {
     console.error("Error cleaning branches:", err);
   }
+}
+
+function question(theQuestion: string): Promise<string> {
+  return new Promise((resolve) =>
+    rl.question(theQuestion, (answ) => resolve(answ))
+  );
 }
 
 async function handleLocalBranches() {
@@ -24,24 +32,20 @@ async function handleLocalBranches() {
   if (localBranches.length > 0) {
     console.log(`The following local branches will be deleted:`);
     console.log(localBranches.join("\n"));
-    rl.question(
-      "Are you sure you want to delete these local branches? (yes/no): ",
-      async (answer) => {
-        if (answer.toLowerCase() === "yes" || answer.toLowerCase() === "y") {
-          for (const branch of localBranches) {
-            console.log(`Deleting local branch ${branch}...`);
-            await git.deleteLocalBranch(branch);
-            console.log(`Local branch ${branch} deleted.`);
-          }
-        } else {
-          console.log("Process canceled. No local branches were deleted.");
-        }
-        await handleRemoteBranches();
-      }
+    var answer = await question(
+      "Are you sure you want to delete these local branches? (yes/no): "
     );
+    if (answer.toLowerCase() === "yes" || answer.toLowerCase() === "y") {
+      for (const branch of localBranches) {
+        console.log(`Deleting local branch ${branch}...`);
+        await git.deleteLocalBranch(branch);
+        console.log(`Local branch ${branch} deleted.`);
+      }
+    } else {
+      console.log("Process canceled. No local branches were deleted.");
+    }
   } else {
     console.log("No local branches to delete.");
-    await handleRemoteBranches();
   }
 }
 
@@ -56,26 +60,20 @@ async function handleRemoteBranches() {
     console.log(`The following remote branches will be deleted:`);
     console.log(remoteBranches.join("\n"));
 
-    rl.question(
-      "Are you sure you want to delete these remote branches? (yes/no): ",
-      async (answer) => {
-        if (answer.toLowerCase() === "yes" || answer.toLowerCase() === "y") {
-          for (const branch of remoteBranches) {
-            console.log(`Deleting remote branch ${branch}...`);
-            await git.push("origin", branch.replace("origin/", ""), [
-              "--delete",
-            ]);
-            console.log(`Remote branch ${branch} deleted.`);
-          }
-        } else {
-          console.log("Process canceled. No remote branches were deleted.");
-        }
-        rl.close();
-      }
+    var answer = await question(
+      "Are you sure you want to delete these remote branches? (yes/no): "
     );
+    if (answer.toLowerCase() === "yes" || answer.toLowerCase() === "y") {
+      for (const branch of remoteBranches) {
+        console.log(`Deleting remote branch ${branch}...`);
+        await git.push("origin", branch.replace("origin/", ""), ["--delete"]);
+        console.log(`Remote branch ${branch} deleted.`);
+      }
+    } else {
+      console.log("Process canceled. No remote branches were deleted.");
+    }
   } else {
     console.log("No remote branches to delete.");
-    rl.close();
   }
 }
 
