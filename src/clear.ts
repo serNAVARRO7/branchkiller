@@ -18,7 +18,7 @@ async function clear(): Promise<void> {
   }
 }
 
-function question(theQuestion: string): Promise<string> {
+async function question(theQuestion: string): Promise<string> {
   return new Promise((resolve) =>
     rl.question(theQuestion, (answ) => resolve(answ))
   );
@@ -32,7 +32,7 @@ async function handleLocalBranches() {
   if (localBranches.length > 0) {
     console.log(`The following local branches will be deleted:`);
     console.log(localBranches.join("\n"));
-    var answer = await question(
+    const answer = await question(
       "Are you sure you want to delete these local branches? (yes/no): "
     );
     if (answer.toLowerCase() === "yes" || answer.toLowerCase() === "y") {
@@ -60,7 +60,7 @@ async function handleRemoteBranches() {
     console.log(`The following remote branches will be deleted:`);
     console.log(remoteBranches.join("\n"));
 
-    var answer = await question(
+    const answer = await question(
       "Are you sure you want to delete these remote branches? (yes/no): "
     );
     if (answer.toLowerCase() === "yes" || answer.toLowerCase() === "y") {
