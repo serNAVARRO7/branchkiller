@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import simpleGit, { SimpleGit } from "simple-git";
 import readline from "readline";
 

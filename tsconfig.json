@@ -1,19 +1,23 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "CommonJS",
-    "lib": ["ES6"],
-    "outDir": "./dist",
-    "rootDir": "./src",
     "esModuleInterop": true,
+    "sourceMap": true,
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "node",
+    "declaration": false,
+    "rootDir": "./src/",
+    "outDir": "./dist/",
     "strict": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "strictFunctionTypes": true,
+    "noImplicitAny": false,
+    "noImplicitOverride": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": false,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "."
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }
