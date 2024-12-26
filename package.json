@@ -1,11 +1,11 @@
 {
   "name": "branchkiller",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A command-line tool to delete all git local and remote branches except 'main'.",
-  "main": "dist/clear.js",
-  "exports": "./dist/clear.js",
+  "main": "dist/index.js",
+  "exports": "./dist/index.js",
   "bin": {
-    "branchkiller": "dist/clear.js"
+    "branchkiller": "dist/index.js"
   },
   "type": "module",
   "files": [
@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "start": "node dist/clear.js",
+    "start": "node dist/index.js",
     "prepare": "npm run build",
     "branchkiller": "npm run build && npm run start"
   },
@@ -34,6 +34,9 @@
     "url": "git+https://github.com/serNAVARRO7/branchkiller.git"
   },
   "dependencies": {
+    "commander": "^12.1.0",
+    "figlet": "^1.8.0",
+    "inquirer": "^12.3.0",
     "simple-git": "^3.27.0"
   },
   "devDependencies": {
