@@ -1,15 +1,15 @@
 {
-  "name": "brclear",
+  "name": "branchkiller",
   "version": "0.0.1",
   "description": "A command-line tool to delete all git local and remote branches except 'main'.",
   "main": "dist/clear.js",
   "bin": {
-    "brclear": "./dist/clear.js"
+    "branchkiller": "./dist/clear.js"
   },
   "scripts": {
     "build": "tsc",
     "start": "node dist/clear.js",
-    "brclear": "npm run build && npm run start"
+    "branchkiller": "npm run build && npm run start"
   },
   "keywords": [
     "git",
@@ -22,7 +22,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/serNAVARRO7/brclear"
+    "url": "https://github.com/serNAVARRO7/branchkiller"
   },
   "devDependencies": {
     "simple-git": "^3.27.0",
