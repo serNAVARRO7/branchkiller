@@ -67,10 +67,10 @@ By default, branchkiller will scan your local and remote branches, excluding bra
 - Exclude local custom branch
 
 ```bash
-branchkiller --exclude mylocalbranchname
+branchkiller --exclude mylocalbranch
 
 # other alternative:
-branchkiller -E mylocalbranchname
+branchkiller -E mylocalbranch
 ```
 
 - Exclude multiple branches (local and remote)
