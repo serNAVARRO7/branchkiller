@@ -3,22 +3,24 @@ import simpleGit, { SimpleGit } from "simple-git";
 import { program } from "commander";
 import figlet from "figlet";
 import inquirer from "inquirer";
+import { loadPackageJson } from "package-json-from-dist";
 
+const { version } = loadPackageJson(import.meta.url, "../package.json");
 const git: SimpleGit = simpleGit();
 
-console.log(
-  figlet.textSync("BRANCH KILLER", {
-    font: "ANSI Shadow",
-    horizontalLayout: "full",
-  })
-);
-
 program
-  .option("-E, --exclude [branches...]", "Exclude branches", [
+  .option("-e, --exclude [branches...]", "exclude branches", [
     "main",
     "origin/main",
   ])
+  .version(version, "-v, --version", "display version")
   .action((options) => {
+    console.log(
+      figlet.textSync("BRANCH KILLER", {
+        font: "Small Shadow",
+        horizontalLayout: "full",
+      })
+    );
     kill(options.exclude);
   });
 
