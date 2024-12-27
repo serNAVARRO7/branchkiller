@@ -79,7 +79,7 @@ branchkiller -E mylocalbranch
 branchkiller --exclude mylocalbranch origin/myremotebranch
 
 # other alternative:
-branchkiller -E mylocalbranch origin/myremotebranch
+branchkiller -e mylocalbranch origin/myremotebranch
 ```
 
 <a name="contributing"></a>
