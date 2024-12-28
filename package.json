@@ -38,10 +38,12 @@
     "figlet": "^1.8.0",
     "inquirer": "^12.3.0",
     "package-json-from-dist": "^1.0.1",
-    "simple-git": "^3.27.0"
+    "simple-git": "^3.27.0",
+    "colors": "1.4.0"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
+    "@types/colors": "^1.2.1",
     "typescript": "^5.7.2"
   }
 }

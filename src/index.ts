@@ -1,9 +1,10 @@
 #!/usr/bin/env node
-import simpleGit, { SimpleGit } from "simple-git";
+import colors from "colors";
 import { program } from "commander";
 import figlet from "figlet";
 import inquirer from "inquirer";
 import { loadPackageJson } from "package-json-from-dist";
+import simpleGit, { SimpleGit } from "simple-git";
 
 const { version } = loadPackageJson(import.meta.url, "../package.json");
 const git: SimpleGit = simpleGit();
@@ -43,7 +44,7 @@ async function handleLocalBranches(exclude: string[]) {
   ];
 
   if (localBranches.length === 0) {
-    console.log("No local branches to delete.");
+    console.log(colors.blue("No local branches to delete."));
     return;
   }
 
@@ -63,7 +64,7 @@ async function handleLocalBranches(exclude: string[]) {
   ]);
 
   if (branches.selected.length === 0) {
-    console.log("No local branches were selected.");
+    console.log(colors.blue("No local branches were selected."));
     return;
   }
 
@@ -77,14 +78,20 @@ async function handleLocalBranches(exclude: string[]) {
   ]);
 
   if (!answer.confirm) {
-    console.log("No local branches were deleted.");
+    console.log(colors.blue("No local branches were deleted."));
     return;
   }
 
   for (const branch of branches.selected) {
     console.log(`Deleting local branch ${branch}...`);
-    await git.deleteLocalBranch(branch);
-    console.log(`Local branch ${branch} deleted.`);
+    try {
+      await git.deleteLocalBranch(branch);
+      console.log(colors.green(`Local branch ${branch} deleted.`));
+    } catch (err: any) {
+      console.error(
+        colors.red(`Failed to delete local branch ${branch}: ${err.message}`)
+      );
+    }
   }
 }
 
@@ -96,7 +103,7 @@ async function handleRemoteBranches(exclude: string[]) {
   ];
 
   if (remoteBranches.length === 0) {
-    console.log("No remote branches to delete.");
+    console.log(colors.blue("No remote branches to delete."));
     return;
   }
 
@@ -116,7 +123,7 @@ async function handleRemoteBranches(exclude: string[]) {
   ]);
 
   if (branches.selected.length === 0) {
-    console.log("No remote branches were selected.");
+    console.log(colors.blue("No remote branches were selected."));
     return;
   }
 
@@ -130,13 +137,19 @@ async function handleRemoteBranches(exclude: string[]) {
   ]);
 
   if (!answer.confirm) {
-    console.log("No remote branches were deleted.");
+    console.log(colors.blue("No remote branches were deleted."));
     return;
   }
 
   for (const branch of branches.selected) {
     console.log(`Deleting remote branch ${branch}...`);
-    await git.push("origin", branch.replace("origin/", ""), ["--delete"]);
-    console.log(`Remote branch ${branch} deleted.`);
+    try {
+      await git.push("origin", branch.replace("origin/", ""), ["--delete"]);
+      console.log(colors.green(`Remote branch ${branch} deleted.`));
+    } catch (err: any) {
+      console.error(
+        colors.red(`Failed to delete remote branch ${branch}: ${err.message}`)
+      );
+    }
   }
 }
