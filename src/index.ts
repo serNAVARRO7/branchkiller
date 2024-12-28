@@ -22,7 +22,7 @@ program
         horizontalLayout: "full",
       })
     );
-    kill(options.exclude);
+    kill(Array.isArray(options.exclude) ? options.exclude : []);
   });
 
 program.parse(process.argv);
