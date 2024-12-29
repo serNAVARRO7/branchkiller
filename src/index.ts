@@ -13,6 +13,7 @@ program
   .option("-e, --exclude [branches...]", "exclude branches", [
     "main",
     "origin/main",
+    (await git.branch()).current,
   ])
   .version(version, "-v, --version", "display version")
   .action((options) => {
