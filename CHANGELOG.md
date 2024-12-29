@@ -1,7 +1,11 @@
-# 0.1.1
+# 0.1.2
 
 - Improved error handling
 - Enhanced user experience
+
+# 0.1.1
+
+- Unpublish
 
 # 0.1.0
 
