@@ -1,3 +1,8 @@
+# 0.1.1
+
+- Improved error handling
+- Enhanced user experience
+
 # 0.1.0
 
 - Add version option
