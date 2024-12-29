@@ -58,7 +58,7 @@ By default, branchkiller will scan your local and remote branches, excluding bra
 
 | ARGUMENT                         | DESCRIPTION                                                                                                                                    |
 | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| -E, --exclude [branches...]      | Exclude branches (default: ["main","origin/main"])                                                                                             |
+| -e, --exclude [branches...]      | Exclude branches (default: ["main","origin/main"])                                                                                             |
 | -h, --help                       | Display help for command                                                                                                                       |
 | -v, --version                    | Display branchkiller version                                                                                                                   |
 
@@ -70,7 +70,7 @@ By default, branchkiller will scan your local and remote branches, excluding bra
 branchkiller --exclude mylocalbranch
 
 # other alternative:
-branchkiller -E mylocalbranch
+branchkiller -e mylocalbranch
 ```
 
 - Exclude multiple branches (local and remote)
