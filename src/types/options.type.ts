@@ -1,5 +1,5 @@
-export interface Options {
+export type Options = {
   exclude: string[];
   local: boolean;
   remote: boolean;
-}
+};
