@@ -59,12 +59,14 @@ By default, branchkiller will scan your local and remote branches, excluding bra
 | ARGUMENT                         | DESCRIPTION                                                                                                                                    |
 | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | -e, --exclude [branches...]      | Exclude branches (default: ["main","origin/main",current local branch])                                                                        |
+| --no-local                       | Do not delete local branches                                                                                                                   |
+| --no-remote                      | Do not delete remote branches                                                                                                                  |
 | -h, --help                       | Display help for command                                                                                                                       |
 | -v, --version                    | Display branchkiller version                                                                                                                   |
 
 ## Examples
 
-- Exclude local custom branch
+- Exclude local branch
 
 ```bash
 branchkiller --exclude mylocalbranch
@@ -80,6 +82,18 @@ branchkiller --exclude mylocalbranch origin/myremotebranch
 
 # other alternative:
 branchkiller -e mylocalbranch origin/myremotebranch
+```
+
+- Do not delete local branches
+
+```bash
+branchkiller --no-local
+```
+
+- Do not delete remote branches
+
+```bash
+branchkiller --no-remote
 ```
 
 <a name="contributing"></a>

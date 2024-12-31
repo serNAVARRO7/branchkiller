@@ -5,6 +5,7 @@ import figlet from "figlet";
 import inquirer from "inquirer";
 import { loadPackageJson } from "package-json-from-dist";
 import simpleGit, { SimpleGit } from "simple-git";
+import { Options } from "./interfaces/options.interface";
 
 const { version } = loadPackageJson(import.meta.url, "../package.json");
 const git: SimpleGit = simpleGit();
@@ -15,23 +16,32 @@ program
     "origin/main",
     (await git.branch()).current,
   ])
+  .option("-l, --local", "delete local branches", true)
+  .option("--no-local", "do not delete local branches", false)
+  .option("-r, --remote", "delete remote branches", true)
+  .option("--no-remote", "do not delete remote branches", false)
   .version(version, "-v, --version", "display version")
-  .action((options) => {
-    console.log(
-      figlet.textSync("BRANCH KILLER", {
-        font: "Small Shadow",
-        horizontalLayout: "full",
-      })
-    );
-    kill(Array.isArray(options.exclude) ? options.exclude : []);
+  .action((options: Options) => {
+    displayBanner();
+    kill(options);
   });
 
 program.parse(process.argv);
 
-async function kill(exclude: string[]): Promise<void> {
+function displayBanner() {
+  console.log(
+    figlet.textSync("BRANCH KILLER", {
+      font: "Small Shadow",
+      horizontalLayout: "full",
+    })
+  );
+}
+
+async function kill(options: Options): Promise<void> {
   try {
-    await handleLocalBranches(exclude);
-    await handleRemoteBranches(exclude);
+    const exclude = Array.isArray(options.exclude) ? options.exclude : [];
+    if (options.local) await handleLocalBranches(exclude);
+    if (options.remote) await handleRemoteBranches(exclude);
   } catch (err: any) {
     console.error("Process aborted.", err.message);
   }
