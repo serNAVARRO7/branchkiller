@@ -50,7 +50,7 @@ $ npm i -g branchkiller
 $ branchkiller
 ```
 
-By default, branchkiller will scan your local and remote branches, excluding branches like main and origin/main from being selected for deletion.
+By default, branchkiller will scan your local and remote branches, excluding branches like your current local branch, main and origin/main from being selected for deletion.
 
 <a name="options"></a>
 
