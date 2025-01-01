@@ -1,9 +1,8 @@
-import colors from "colors";
 import { program } from "commander";
-import figlet from "figlet";
 import inquirer from "inquirer";
 import { loadPackageJson } from "package-json-from-dist";
 import { GitService } from "./services/git.service.js";
+import { LoggerService } from "./services/logger.service.js";
 import { BranchType } from "./types/branch-type.type";
 import { Options } from "./types/options.type.js";
 import { startCase } from "./utils/start-case.util.js";
@@ -11,6 +10,7 @@ import { startCase } from "./utils/start-case.util.js";
 const { version } = loadPackageJson(import.meta.url, "../package.json");
 
 const gitService = new GitService();
+const loggerService = new LoggerService();
 
 program
   .option("-e, --exclude [branches...]", "exclude branches", [
@@ -22,46 +22,62 @@ program
   .option("--no-local", "do not delete local branches", false)
   .option("-r, --remote", "delete remote branches", true)
   .option("--no-remote", "do not delete remote branches", false)
+  .option(
+    "-V --verbose",
+    "be verbose when deleting branches, showing them as they are deleted",
+    true
+  )
+  .option(
+    "--no-verbose",
+    "be silent when deleting branches, showing nothing as they are deleted",
+    false
+  )
+  .option(
+    "-i --interactive",
+    "ask for confirmation before deleting branches",
+    true
+  )
+  .option(
+    "--no-interactive",
+    "do not ask for confirmation before deleting branches",
+    false
+  )
   .version(version, "-v, --version", "display version")
   .action((options: Options) => {
-    displayBanner();
+    loggerService.verbose = options.verbose;
+    loggerService.displayBanner();
     kill(options);
   });
 
 program.parse(process.argv);
 
-function displayBanner() {
-  console.log(
-    figlet.textSync("BRANCH KILLER", {
-      font: "Small Shadow",
-      horizontalLayout: "full",
-    })
-  );
-}
-
-async function kill(options: Options): Promise<void> {
+async function kill(options: Options) {
   try {
     const exclude = Array.isArray(options.exclude) ? options.exclude : [];
 
     if (options.local) {
       const localBranches = await gitService.getLocalBranches(exclude);
-      await handleBranches("local", localBranches);
+      await handleBranches("local", localBranches, options.interactive);
     }
 
     if (options.remote) {
       const remoteBranches = await gitService.getRemoteBranches(exclude);
-      await handleBranches("remote", remoteBranches);
+      await handleBranches("remote", remoteBranches, options.interactive);
     }
   } catch (err: any) {
-    console.error("Process aborted.", err.message);
+    loggerService.log(`Process aborted. ${err.message}`);
   }
 }
 
-async function handleBranches(type: BranchType, branches: string[]) {
+async function handleBranches(
+  type: BranchType,
+  branches: string[],
+  interactive: boolean
+) {
   const naming = type === "local" ? "local" : "remote";
 
   if (branches.length === 0) {
-    console.log(colors.blue(`No ${naming} branches to delete.`));
+    loggerService.log(`No ${naming} branches to delete.`, "blue");
     return;
   }
 
@@ -81,36 +97,39 @@ async function handleBranches(type: BranchType, branches: string[]) {
   ]);
 
   if (question.selected.length === 0) {
-    console.log(colors.blue(`No ${naming} branches were selected.`));
+    loggerService.log(`No ${naming} branches were selected.`, "blue");
     return;
   }
 
-  const confirm = await inquirer.prompt([
-    {
-      type: "confirm",
-      name: "confirm",
-      message: `Are you sure?`,
-      default: false,
-    },
-  ]);
+  if (interactive) {
+    const confirm = await inquirer.prompt([
+      {
+        type: "confirm",
+        name: "confirm",
+        message: `Are you sure?`,
+        default: false,
+      },
+    ]);
 
-  if (!confirm.confirm) {
-    console.log(colors.blue(`No ${naming} branches were deleted.`));
-    return;
+    if (!confirm.confirm) {
+      loggerService.log(`No ${naming} branches were deleted.`, "blue");
+      return;
+    }
   }
 
   for (const branch of question.selected) {
-    console.log(`Deleting ${naming} branch ${branch}...`);
+    loggerService.log(`Deleting ${naming} branch ${branch}...`);
     try {
       await gitService.deleteBranch(type, branch);
-      console.log(
-        colors.green(`${startCase(naming)} branch ${branch} deleted.`)
+      loggerService.log(
+        `${startCase(naming)} branch ${branch} deleted.`,
+        "green"
       );
     } catch (err: any) {
-      console.error(
-        colors.red(
-          `Failed to delete ${naming} branch ${branch}: ${err.message}`
-        )
+      loggerService.log(
+        `Failed to delete ${naming} branch ${branch}: ${err.message}`,
+        "red",
+        true
       );
     }
   }

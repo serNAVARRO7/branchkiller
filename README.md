@@ -61,6 +61,8 @@ By default, branchkiller will scan your local and remote branches, excluding bra
 | -e, --exclude [branches...]      | Exclude branches (default: ["main","origin/main",current local branch])                                                                        |
 | --no-local                       | Do not delete local branches                                                                                                                   |
 | --no-remote                      | Do not delete remote branches                                                                                                                  |
+| --no-verbose                     | Be silent when deleting branches, showing nothing while they are being deleted                                                                 |
+| --no-interactive                 | Do not ask for confirmation before deleting branches                                                                                           |
 | -h, --help                       | Display help for command                                                                                                                       |
 | -v, --version                    | Display branchkiller version                                                                                                                   |
 
@@ -94,6 +96,17 @@ branchkiller --no-local
 
 ```bash
 branchkiller --no-remote
+```
+
+- Do not ask for confirmation before deleting branches
+
+```bash
+branchkiller --no-interactive
+```
+
+- Be silent when deleting branches, showing nothing while they are being deleted
+```bash
+branchkiller --no-interactive
 ```
 
 <a name="contributing"></a>
