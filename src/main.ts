@@ -1,5 +1,6 @@
 import { program } from "commander";
 import inquirer from "inquirer";
+import ora from "ora";
 import { loadPackageJson } from "package-json-from-dist";
 import { GitService } from "./services/git.service.js";
 import { LoggerService } from "./services/logger.service.js";
@@ -25,12 +26,12 @@ program
   .option(
     "-V --verbose",
     "be verbose when deleting branches, showing them as they are deleted",
-    true
+    false
   )
   .option(
     "--no-verbose",
     "be silent when deleting branches, showing nothing as they are deleted",
-    false
+    true
   )
   .option(
     "-i --interactive",
@@ -77,7 +78,7 @@ async function handleBranches(
   const naming = type === "local" ? "local" : "remote";
 
   if (branches.length === 0) {
-    loggerService.log(`No ${naming} branches to delete.`, "blue");
+    loggerService.log(`No ${naming} branches to delete.`, "blue", true);
     return;
   }
 
@@ -97,7 +98,7 @@ async function handleBranches(
   ]);
 
   if (question.selected.length === 0) {
-    loggerService.log(`No ${naming} branches were selected.`, "blue");
+    loggerService.log(`No ${naming} branches were selected.`, "blue", true);
     return;
   }
 
@@ -117,6 +118,7 @@ async function handleBranches(
     }
   }
 
+  const spinner = ora(`Deleting ${naming} branches. \n`).start();
   for (const branch of question.selected) {
     loggerService.log(`Deleting ${naming} branch ${branch}...`);
     try {
@@ -127,12 +129,13 @@ async function handleBranches(
       );
     } catch (err: any) {
       loggerService.log(
-        `Failed to delete ${naming} branch ${branch}: ${err.message}`,
+        `Failed to delete ${naming} branch ${branch}: ${err.message}.`,
         "red",
         true
       );
     }
   }
+  spinner.succeed(`${startCase(naming)} branches deleted.`);
 }
 
 export default (): void => {};
