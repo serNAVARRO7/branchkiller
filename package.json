@@ -1,7 +1,7 @@
 {
   "name": "branchkiller",
-  "version": "0.1.2",
-  "description": "A command-line tool to delete all git local and remote branches except 'main'.",
+  "version": "0.2.0",
+  "description": "A command-line tool to delete all git local and remote branches except 'main'. Delete Git branches in bulk.",
   "main": "dist/index.js",
   "exports": "./dist/index.js",
   "bin": {
