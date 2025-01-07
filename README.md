@@ -62,7 +62,7 @@ By default, branchkiller will scan your local and remote branches, excluding bra
 | --no-local                       | Do not delete local branches                                                                                                                   |
 | --no-remote                      | Do not delete remote branches                                                                                                                  |
 | --no-interactive                 | Do not ask for confirmation before deleting branches                                                                                           |
-| -V --verbose                     | Be verbose when deleting branches, showing them as they are deleted                                                                            |
+| -V, --verbose                     | Be verbose when deleting branches, showing them as they are deleted                                                                            |
 | -h, --help                       | Display help for command                                                                                                                       |
 | -v, --version                    | Display branchkiller version                                                                                                                   |
 
