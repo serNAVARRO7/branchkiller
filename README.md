@@ -77,6 +77,15 @@ branchkiller --exclude mylocalbranch
 branchkiller -e mylocalbranch
 ```
 
+- Exclude remote branch
+
+```bash
+branchkiller --exclude origin/myremotebranch
+
+# other alternative:
+branchkiller -e origin/myremotebranch
+```
+
 - Exclude multiple branches (local and remote)
 
 ```bash
