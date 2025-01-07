@@ -1,3 +1,12 @@
+# 0.2.0
+
+- New options:
+  - `--no-local`: Do not delete local branches
+  - `--no-remote`: Do not delete remote branches
+  - `--no-interactive`: Do not ask for confirmation before deleting branches
+  - `--verbose`: Be verbose when deleting branches (more informative logs)
+- Spinner displayed while deleting branches, providing visual feedback on progress
+
 # 0.1.2
 
 - Improved error handling
