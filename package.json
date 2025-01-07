@@ -34,16 +34,17 @@
     "url": "git+https://github.com/serNAVARRO7/branchkiller.git"
   },
   "dependencies": {
+    "colors": "1.4.0",
     "commander": "^12.1.0",
     "figlet": "^1.8.0",
     "inquirer": "^12.3.0",
+    "ora": "^8.1.1",
     "package-json-from-dist": "^1.0.1",
-    "simple-git": "^3.27.0",
-    "colors": "1.4.0"
+    "simple-git": "^3.27.0"
   },
   "devDependencies": {
-    "@types/node": "^22.10.2",
     "@types/colors": "^1.2.1",
+    "@types/node": "^22.10.2",
     "typescript": "^5.7.2"
   }
 }
