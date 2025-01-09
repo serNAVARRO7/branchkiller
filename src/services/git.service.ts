@@ -29,10 +29,12 @@ export class GitService {
   }
 
   async deleteBranch(type: BranchType, branch: string): Promise<void> {
-    type == "local"
-      ? await this.git.deleteLocalBranch(branch)
-      : await this.git.push("origin", branch.replace("origin/", ""), [
-          "--delete",
-        ]);
+    if (type == "local") {
+      await this.git.deleteLocalBranch(branch);
+    } else {
+      await this.git.push("origin", branch.replace("origin/", ""), [
+        "--delete",
+      ]);
+    }
   }
 }
