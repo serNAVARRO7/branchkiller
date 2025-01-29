@@ -37,4 +37,8 @@ export class GitService {
       ]);
     }
   }
+
+  async fetchPrune(): Promise<void> {
+    await this.git.fetch(["--prune"]);
+  }
 }

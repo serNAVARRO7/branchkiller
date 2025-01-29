@@ -54,6 +54,8 @@ program.parse(process.argv);
 
 async function kill(options: Options) {
   try {
+    await gitService.fetchPrune();
+
     const exclude = Array.isArray(options.exclude) ? options.exclude : [];
 
     if (options.local) {
