@@ -1,3 +1,11 @@
+# 0.2.2
+
+- Allow display version from not a git repository (or any of the parent directories)
+
+# 0.2.1
+
+- Added git fech pune before execution
+
 # 0.2.0
 
 - New options:
