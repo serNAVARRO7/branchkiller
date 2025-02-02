@@ -10,14 +10,13 @@ import { startCase } from "./utils/start-case.util.js";
 
 const { version } = loadPackageJson(import.meta.url, "../package.json");
 
-const gitService = new GitService();
-const loggerService = new LoggerService();
+let gitService: GitService;
+let loggerService: LoggerService;
 
 program
   .option("-e, --exclude [branches...]", "exclude branches", [
     "main",
     "origin/main",
-    await gitService.getCurrentBranch(),
   ])
   .option("-l, --local", "delete local branches", true)
   .option("--no-local", "do not delete local branches", false)
@@ -45,8 +44,9 @@ program
   )
   .version(version, "-v, --version", "display version")
   .action((options: Options) => {
-    loggerService.verbose = options.verbose;
+    loggerService = new LoggerService(options.verbose);
     loggerService.displayBanner();
+    gitService = new GitService();
     kill(options);
   });
 
@@ -56,7 +56,9 @@ async function kill(options: Options) {
   try {
     await gitService.fetchPrune();
 
-    const exclude = Array.isArray(options.exclude) ? options.exclude : [];
+    const exclude = Array.isArray(options.exclude)
+      ? [...options.exclude, await gitService.getCurrentBranch()]
+      : [];
 
     if (options.local) {
       const localBranches = await gitService.getLocalBranches(exclude);
