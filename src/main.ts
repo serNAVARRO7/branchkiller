@@ -22,6 +22,7 @@ program
   .option("--no-local", "do not delete local branches", false)
   .option("-r, --remote", "delete remote branches", true)
   .option("--no-remote", "do not delete remote branches", false)
+  .option("-f, --force", "force branch deletion", false)
   .option(
     "-V --verbose",
     "be verbose when deleting branches, showing them as they are deleted",
@@ -62,12 +63,12 @@ async function kill(options: Options) {
 
     if (options.local) {
       const localBranches = await gitService.getLocalBranches(exclude);
-      await handleBranches("local", localBranches, options.interactive);
+      await handleBranches("local", localBranches, options.interactive, options.force);
     }
 
     if (options.remote) {
       const remoteBranches = await gitService.getRemoteBranches(exclude);
-      await handleBranches("remote", remoteBranches, options.interactive);
+      await handleBranches("remote", remoteBranches, options.interactive, options.force);
     }
   } catch (err: any) {
     loggerService.log(`Process aborted. ${err.message}`);
@@ -77,7 +78,8 @@ async function kill(options: Options) {
 async function handleBranches(
   type: BranchType,
   branches: string[],
-  interactive: boolean
+  interactive: boolean,
+  force: boolean
 ) {
   const naming = type === "local" ? "local" : "remote";
 
@@ -126,7 +128,7 @@ async function handleBranches(
   for (const branch of question.selected) {
     loggerService.log(`Deleting ${naming} branch ${branch}...`);
     try {
-      await gitService.deleteBranch(type, branch);
+      await gitService.deleteBranch(type, branch, force);
       loggerService.log(
         `${startCase(naming)} branch ${branch} deleted.`,
         "green"

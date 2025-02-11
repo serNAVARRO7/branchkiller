@@ -4,4 +4,5 @@ export type Options = {
   remote: boolean;
   verbose: boolean;
   interactive: boolean;
+  force: boolean;
 };
