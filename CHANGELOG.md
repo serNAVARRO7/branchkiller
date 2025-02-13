@@ -1,5 +1,9 @@
 # 0.2.2
 
+- Added force option
+
+# 0.2.2
+
 - Allow display version from not a git repository (or any of the parent directories)
 
 # 0.2.1
