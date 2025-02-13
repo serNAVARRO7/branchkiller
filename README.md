@@ -4,6 +4,7 @@
   <img src="https://github.com/serNAVARRO7/branchkiller/blob/main/assets/logo.png" width="520" alt="branchkiller logo" />
 </p>
 <p align="center">
+<img alt="npm" src="https://img.shields.io/github/check-runs/serNAVARRO7/branchkiller/main">
 <img alt="npm" src="https://img.shields.io/npm/dy/branchkiller.svg">
 <img alt="npm version" src="https://img.shields.io/npm/v/branchkiller.svg">
 <img alt="NPM" src="https://img.shields.io/npm/l/branchkiller.svg">
