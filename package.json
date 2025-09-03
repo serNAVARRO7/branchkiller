@@ -37,17 +37,17 @@
   "dependencies": {
     "colors": "1.4.0",
     "commander": "^14.0.0",
-    "figlet": "^1.8.1",
-    "inquirer": "^12.6.3",
+    "figlet": "^1.8.2",
+    "inquirer": "^12.9.4",
     "ora": "^8.2.0",
     "package-json-from-dist": "^1.0.1",
     "simple-git": "^3.28.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.30.0",
-    "@types/node": "^24.0.7",
-    "eslint": "^9.30.0",
-    "typescript": "^5.8.3",
-    "typescript-eslint": "^8.35.0"
+    "@eslint/js": "^9.34.0",
+    "@types/node": "^24.3.0",
+    "eslint": "^9.34.0",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.42.0"
   }
 }
