@@ -39,7 +39,7 @@
     "commander": "^14.0.0",
     "figlet": "^1.8.2",
     "inquirer": "^12.9.4",
-    "ora": "^8.2.0",
+    "ora": "^9.0.0",
     "package-json-from-dist": "^1.0.1",
     "simple-git": "^3.28.0"
   },
