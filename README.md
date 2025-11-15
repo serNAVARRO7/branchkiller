@@ -43,6 +43,7 @@
 ```bash
 $ npm i -g branchkiller
 ```
+
 <a name="usage"></a>
 
 # :clipboard: Usage
@@ -57,16 +58,16 @@ By default, branchkiller will scan your local and remote branches, excluding bra
 
 ## Options
 
-| ARGUMENT                         | DESCRIPTION                                                                                                                                    |
-| -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| -e, --exclude [branches...]      | Exclude branches (default: ["main","origin/main",current local branch])                                                                        |
-| --no-local                       | Do not delete local branches                                                                                                                   |
-| --no-remote                      | Do not delete remote branches                                                                                                                  |
-| --no-interactive                 | Do not ask for confirmation before deleting branches                                                                                           |
-| -f, --force                      | Force branch deletion                                                                                                                          |
-| -V, --verbose                     | Be verbose when deleting branches, showing them as they are deleted                                                                            |
-| -h, --help                       | Display help for command                                                                                                                       |
-| -v, --version                    | Display branchkiller version                                                                                                                   |
+| ARGUMENT                    | DESCRIPTION                                                             |
+| --------------------------- | ----------------------------------------------------------------------- |
+| -e, --exclude [branches...] | Exclude branches (default: ["main","origin/main",current local branch]) |
+| --no-local                  | Do not delete local branches                                            |
+| --no-remote                 | Do not delete remote branches                                           |
+| --no-interactive            | Do not ask for confirmation before deleting branches                    |
+| -f, --force                 | Force branch deletion                                                   |
+| -V, --verbose               | Be verbose when deleting branches, showing them as they are deleted     |
+| -h, --help                  | Display help information                                                |
+| -v, --version               | Display branchkiller version                                            |
 
 ## Examples
 
