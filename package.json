@@ -38,7 +38,7 @@
     "colors": "1.4.0",
     "commander": "^14.0.2",
     "figlet": "^1.9.4",
-    "inquirer": "^13.0.2",
+    "inquirer": "^14.0.2",
     "ora": "^9.0.0",
     "package-json-from-dist": "^1.0.1",
     "simple-git": "^3.30.0"
